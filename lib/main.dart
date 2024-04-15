@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:procep/homePage/home_seach_page.dart';
 import 'package:procep/splachPage/splach_page.dart';
 
 void main() {
@@ -11,8 +13,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: SplachPage(),
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    return MaterialApp(
+      initialRoute: "/splach",
+      routes: {
+        "/": (context) => const HomeSeachPage(),
+        "/splach": (context) => const SplachPage()
+      },
     );
   }
 }

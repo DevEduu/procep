@@ -10,13 +10,11 @@ class SplachPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CustomStyleApp appStyle = CustomStyleApp();
-    return MaterialApp(
-      home: AnimatedSplashScreen(
-        duration: 3000,
-        splash: SvgPicture.asset('assets/logo_branco.svg'),
-        nextScreen: const HomeSeachPage(),
-        backgroundColor: appStyle.primaryColor,
-      ),
+    return AnimatedSplashScreen(
+      duration: 3000,
+      splash: SvgPicture.asset('assets/logo_branco.svg'),
+      nextScreen: const HomeSeachPage(),
+      backgroundColor: appStyle.primaryColor,
     );
   }
 }
