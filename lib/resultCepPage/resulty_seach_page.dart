@@ -166,6 +166,7 @@ class InfoTableCep extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Recorte sobre o objeto pai
           ClipRRect(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(bordeRadioValue),
