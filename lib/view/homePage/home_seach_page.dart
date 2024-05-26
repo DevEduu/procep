@@ -1,17 +1,17 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:procep/controller/cep_controller.dart';
 import 'package:procep/custom_style_app.dart';
-import 'package:procep/repository/cep_repository.dart';
-import 'package:procep/resultCepPage/resulty_seach_page.dart';
 
 class HomeSeachPage extends StatelessWidget {
-  const HomeSeachPage({super.key});
+  const HomeSeachPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put<CepController>(CepController());
     CustomStyleApp appStyle = CustomStyleApp();
-    TextEditingController cepControle = TextEditingController();
+
     return Material(
       child: Scaffold(
         backgroundColor: appStyle.secundaryColor,
@@ -36,20 +36,22 @@ class HomeSeachPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      TextFormField(
-                        controller: cepControle,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          hintText: 'Digite o CEP...',
-                          fillColor: Colors.white,
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(100),
-                            borderSide: BorderSide.none,
-                          ),
-                          prefixIcon: const Icon(Icons.search),
-                        ),
-                      ),
+                      Obx(() => TextFormField(
+                            controller: TextEditingController(
+                              text: controller.cepValue.value,
+                            ),
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: 'Digite o CEP...',
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(100),
+                                borderSide: BorderSide.none,
+                              ),
+                              prefixIcon: const Icon(Icons.search),
+                            ),
+                          )),
                       const SizedBox(height: 16.0),
                       SizedBox(
                         width: 400,
@@ -61,33 +63,11 @@ class HomeSeachPage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () async {
-                            try {
-                              final cepRepository = CepRepository();
-                              final cep = await cepRepository
-                                  .searchAll(cepControle.text);
-                              if (kDebugMode) {
-                                print(cep);
-                              }
-                              // ignore: use_build_context_synchronously
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => ResultySeachPage(
-                                    valueCepUser: cepControle.text,
-                                    localidade: cep.localidade,
-                                    bairro: cep.bairro,
-                                    uf: cep.uf,
-                                    stateCep: cep.localidade,
-                                    countryCep: 'Brasil',
-                                    logradouro: cep.logradouro ?? '',
-                                  ),
-                                ),
-                              );
-                            } catch (e) {
-                              // Trate o erro aqui, por exemplo, mostrando um AlertDialog
-                              if (kDebugMode) {
-                                print('Erro: $e');
-                              }
-                            }
+                            controller.fetchCep(controller.cepValue.value);
+                            Get.toNamed(
+                              '/result',
+                              arguments: controller.cepValue.value,
+                            );
                           },
                           child: const Text(
                             'Buscar',
