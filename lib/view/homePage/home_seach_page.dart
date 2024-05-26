@@ -58,7 +58,7 @@ class HomeSeachPage extends StatelessWidget {
                         height: 70,
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateColor.resolveWith(
+                            backgroundColor: WidgetStateColor.resolveWith(
                               (states) => appStyle.primaryColor,
                             ),
                           ),

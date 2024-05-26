@@ -11,6 +11,21 @@ void main() {
   runApp(const MyApp());
 }
 
+  @override
+  Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    return MaterialApp(
+      title: 'Procep',
+      debugShowCheckedModeBanner: false,
+      initialRoute: "/splach",
+      routes: {
+        "/": (context) => const HomeSeachPage(),
+        "/splach": (context) => const SplachPage()
+      },
+    );
+  }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
