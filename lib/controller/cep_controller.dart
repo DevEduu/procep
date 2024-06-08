@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:procep/models/cep.dart';
+import 'package:procep/App/models/cep.dart';
 import 'package:http/http.dart' as http;
 
 class CepController extends GetxController {

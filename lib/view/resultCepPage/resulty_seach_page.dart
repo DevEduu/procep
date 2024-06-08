@@ -2,132 +2,123 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:procep/controller/cep_controller.dart';
 import 'package:procep/custom_style_app.dart';
 
 class ResultySeachPage extends StatelessWidget {
-  const ResultySeachPage({Key? key}) : super(key: key);
+  ResultySeachPage({
+    Key? key,
+  }) : super(key: key);
+  final _cepValueInput = Get.arguments();
+
+
 
   @override
   Widget build(BuildContext context) {
     CustomStyleApp appStyle = CustomStyleApp();
-    final CepController controller = Get.find<CepController>();
-    return Obx(() => controller.isLoading.value
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : Scaffold(
-            backgroundColor: appStyle.primaryColor,
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: SvgPicture.asset('assets/logo_branco.svg'),
-                ),
-                Expanded(
-                    flex: 2,
+
+    return Scaffold(
+      backgroundColor: appStyle.primaryColor,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            child: SvgPicture.asset('assets/logo_branco.svg'),
+          ),
+          Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  const Text(
+                    'RESULTADO DA BUSCA',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        const Text(
-                          'RESULTADO DA BUSCA',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        InfoTableCep(
+                          uf: 'uf',
+                          valueCepUser:_cepValueInput,
+                          logradouro:' logradouro',
+                          localidade: 'localidade',
+                          bairro:' bairro 0',
+                          stateCep: 'stateCep',
+                          countryCep: 'countryCep',
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              InfoTableCep(
-                                uf: controller.cepValue.value,
-                                valueCepUser: controller.cepValue.value,
-                                logradouro: controller
-                                    .cepReponse.value.logradouro
-                                    .toString(),
-                                localidade: controller
-                                    .cepReponse.value.localidade
-                                    .toString(),
-                                bairro: controller.cepReponse.value.complemento
-                                    .toString(),
-                                stateCep:
-                                    controller.cepReponse.value.gia.toString(),
-                                countryCep: 'countryCep',
+                        const SizedBox(height: 16.0),
+                        SizedBox(
+                          width: 400,
+                          height: 70,
+                          child: ElevatedButton.icon(
+                            icon: const Icon(Icons.search, color: Colors.white),
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateColor.resolveWith(
+                                (states) => appStyle.buttonBackgroundColor,
                               ),
-                              const SizedBox(height: 16.0),
-                              SizedBox(
-                                width: 400,
-                                height: 70,
-                                child: ElevatedButton.icon(
-                                  icon: const Icon(Icons.search,
-                                      color: Colors.white),
-                                  style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateColor.resolveWith(
-                                      (states) =>
-                                          appStyle.buttonBackgroundColor,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  label: const Text(
-                                    'BUSCAR CEP NOVAMENTE',
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        const Text(
-                          'Errata altenativa.\nNão temos vínculo com os Correios.',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Color.fromARGB(
-                              255,
-                              218,
-                              218,
-                              218,
+                            ),
+                            onPressed: () {
+                              Get.toNamed('/');
+                            },
+                            label: const Text(
+                              'BUSCAR CEP NOVAMENTE',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                          textAlign: TextAlign.center,
-                        ),
+                        )
                       ],
-                    )),
-                const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'By Eduardo',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white,
+                    ),
+                  ),
+                  const Text(
+                    'Errata altenativa.\nNão temos vínculo com os Correios.',
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Color.fromARGB(
+                        255,
+                        218,
+                        218,
+                        218,
                       ),
                     ),
-                    Text(
-                      'Feito com ❤️',
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 10,
-                        color: Colors.white,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ));
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              )),
+          const Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'By Eduardo',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                'Feito com ❤️',
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 10,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
   }
 }
 

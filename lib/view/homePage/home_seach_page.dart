@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -62,13 +63,17 @@ class HomeSeachPage extends StatelessWidget {
                               (states) => appStyle.primaryColor,
                             ),
                           ),
-                          onPressed: () async {
-                            controller.fetchCep(controller.cepValue.value);
-                            Get.toNamed(
-                              '/result',
-                              arguments: controller.cepValue.value,
-                            );
-                          },
+
+                          onPressed: () {
+                            try {
+                              if (controller.cepValue.value.length >= 8) {
+                                Get.toNamed('/result', arguments: controller.cepValue.value);
+                              }
+                            } catch (e) {
+                              Get.snackbar('Erro', 'Cep inválido');
+                            }
+                          }
+                          ,
                           child: const Text(
                             'Buscar',
                             style: TextStyle(

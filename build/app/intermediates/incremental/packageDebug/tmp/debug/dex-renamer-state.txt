@@ -1,4 +1,4 @@
-#Sun May 26 16:39:50 UTC 2024
+#Wed Jun 05 01:50:28 UTC 2024
 base.2=/home/user/procep/build/app/intermediates/dex/debug/mergeProjectDexDebug/1/classes.dex
 path.2=1/classes.dex
 base.1=/home/user/procep/build/app/intermediates/dex/debug/mergeProjectDexDebug/0/classes.dex
