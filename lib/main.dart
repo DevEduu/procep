@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/home', page: () => const HomeSeachPage()),
         GetPage(name: '/splach', page: () => const SplachPage()),
-        GetPage(name: '/result', page: () => const ResultySeachPage()),
+        GetPage(name: '/result', page: () =>  ResultySeachPage()),
       ],
     );
   }
